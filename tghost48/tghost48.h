@@ -15,16 +15,29 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
+/*  Schematic switch labels
+    01A  05A  09A  13A  17A  21A         26A  30A  34A  38A  42A  46A
+    02A  06A  10A  14A  18A  22A         27A  31A  35A  39A  43A  47A
+    03A  07A  11A  15A  19A  23A         28A  32A  36A  40A  44A  48A
+    04A  08A  12A  16A  20A  24A   ENC   29A  33A  37A  41A  45A  49A 
+*/
 #define LAYOUT( \
-    l00, l04, l10, l14, l20, l24, r00, r04, r10, r14, r20, r24,  \
-    l01, l05, l11, l15, l21, l25, r01, r05, r11, r15, r21, r25,  \
-    l02, l06, l12, l16, l22, l26, r02, r06, r12, r16, r22, r26,  \
-    l03, l07, l13, l17, l23, l27, l28, r03, r07, r13, r17, r23, r27   \
-) { \
-    { l00, l01, l02, l03, l04, l05, l06, l07 }, \
-    { l10, l11, l12, l13, l14, l15, l16, l17 }, \
-    { l20, l21, l22, l23, l24, l25, l26, l27 }, \
-    { r00, r01, r02, r03, r04, r05, r06, r07 }, \
-    { r10, r11, r12, r13, r14, r15, r16, r17 }, \
-    { r20, r21, r22, r23, r24, r25, r26, r27 }, \
+    c00, c10, c20, c30, c40, c50,        r00, r01, r02, r03, r04, r05,   \
+    c01, c11, c21, c31, c41, c51,        r10, r11, r12, r13, r14, r15,   \
+    c02, c12, c22, c32, c42, c52,        r20, r21, r22, r23, r24, r25,   \
+    c03, c13, c23, c33, c43, c53,  c0R,  r30, r31, r32, r33, r34, r35,   \
+) \
+{ \
+    /* LEFT SIDE SWITCHES, COL2ROW  */ \
+    { c00, c10, c20, c30, c40, c50 },  \
+    { c01, c11, c21, c31, c41, c51 },  \
+    { c02, c12, c22, c32, c42, c52 },  \
+    { c03, c13, c23, c33, c43, c53 },  \
+    /* RIGHT SIDE SWITCHES, ROW2COL */ \
+    { r00, r01, r02, r03, r04, r05 },  \
+    { r10, r11, r12, r13, r14, r15 },  \
+    { r20, r21, r22, r23, r24, r25 },  \
+    { r30, r31, r32, r33, r34, r35 },  \
+    /* ENCODER SWITCH, COL0 TO ENC_PIN */  \
+    { c0R, XXX, XXX, XXX, XXX, XXX },  \
 }
