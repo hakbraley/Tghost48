@@ -22,22 +22,16 @@
     04A  08A  12A  16A  20A  24A   ENC   29A  33A  37A  41A  45A  49A 
 */
 #define LAYOUT( \
-    c00, c10, c20, c30, c40, c50,        r00, r01, r02, r03, r04, r05,   \
-    c01, c11, c21, c31, c41, c51,        r10, r11, r12, r13, r14, r15,   \
-    c02, c12, c22, c32, c42, c52,        r20, r21, r22, r23, r24, r25,   \
-    c03, c13, c23, c33, c43, c53,  c0R,  r30, r31, r32, r33, r34, r35,   \
+    c00, c10, c20, c30, c40, c50,        r00, r01, r02, r03, r04, r05,  \
+    c01, c11, c21, c31, c41, c51,        r10, r11, r12, r13, r14, r15,  \
+    c02, c12, c22, c32, c42, c52,        r20, r21, r22, r23, r24, r25,  \
+    c03, c13, c23, c33, c43, c53,  c04,  r30, r31, r32, r33, r34, r35,  \
 ) \
 { \
-    /* LEFT SIDE SWITCHES, COL2ROW  */ \
-    { c00, c10, c20, c30, c40, c50 },  \
-    { c01, c11, c21, c31, c41, c51 },  \
-    { c02, c12, c22, c32, c42, c52 },  \
-    { c03, c13, c23, c33, c43, c53 },  \
-    /* RIGHT SIDE SWITCHES, ROW2COL */ \
-    { r00, r01, r02, r03, r04, r05 },  \
-    { r10, r11, r12, r13, r14, r15 },  \
-    { r20, r21, r22, r23, r24, r25 },  \
-    { r30, r31, r32, r33, r34, r35 },  \
-    /* ENCODER SWITCH, COL0 TO ENC_PIN */  \
-    { c0R, XXX, XXX, XXX, XXX, XXX },  \
+    /* LEFT SIDE SWITCHES, COL2ROW     RIGHT SIDE SWITCHES, ROW2COL */  \
+    { c00, c10, c20, c30, c40, c50,    r00, r01, r02, r03, r04, r05 },  \
+    { c01, c11, c21, c31, c41, c51,    r10, r11, r12, r13, r14, r15 },  \
+    { c02, c12, c22, c32, c42, c52,    r20, r21, r22, r23, r24, r25 },  \
+    { c03, c13, c23, c33, c43, c53,    r30, r31, r32, r33, r34, r35 },  \
+    { c04, XXX, XXX, XXX, XXX, XXX,    XXX, XXX, XXX, XXX, XXX, XXX }   \
 }
