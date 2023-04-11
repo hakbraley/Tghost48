@@ -7,12 +7,12 @@
 
 
 /* key matrix size */
-#define MATRIX_COLS 6  // 6 columns on each side
-#define MATRIX_ROWS 9  // 4 rows for each side, and 1 extra row for the rotary encoder
+#define MATRIX_COLS 12  // 6 columns on each side
+#define MATRIX_ROWS 5   // 4 rows, and 1 extra row for the rotary encoder
 
 /* keyboard matrix assignments */
 #define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
-#define MATRIX_ROW_PINS { D7, E6, B4, B5 }
+#define MATRIX_ROW_PINS { D7, E6, B4, B5, C6 }  // C6 is the encoder row pin
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
