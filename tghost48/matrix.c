@@ -104,26 +104,25 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     matrix_io_delay();
 
     // For each row...
-    for(uint8_t row_index = 0; row_index < MATRIX_ROWS/2; row_index++)
+    for(uint8_t row_index = MATRIX_ROWS/2; row_index < MATRIX_ROWS; row_index++)
     {
-        uint8_t tmp = row_index + MATRIX_ROWS/2;
         // Store last value of row prior to reading
-        matrix_row_t last_row_value = current_matrix[tmp];
+        matrix_row_t last_row_value = current_matrix[row_index];
 
         // Check row pin state
         if (readPin(row_pins[row_index]) == 0)
         {
             // Pin LO, set col bit
-            current_matrix[tmp] |= (MATRIX_ROW_SHIFTER << current_col);
+            current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
         }
         else
         {
             // Pin HI, clear col bit
-            current_matrix[tmp] &= ~(MATRIX_ROW_SHIFTER << current_col);
+            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
         // Determine if the matrix changed state
-        if ((last_row_value != current_matrix[tmp]) && !(matrix_changed))
+        if ((last_row_value != current_matrix[row_index]) && !(matrix_changed))
         {
             matrix_changed = true;
         }
@@ -140,8 +139,9 @@ void matrix_init_custom(void) {
     init_pins();
 }
 
-bool matrix_scan_custom(matrix_row_t current_matrix[])
-{
+/*  6 columns on each side.  1 extra column in the middle for the encoder.
+ */
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
   bool changed = false;
 
   // Set row, read cols
