@@ -25,7 +25,7 @@
     c00, c10, c20, c30, c40, c50,        r00, r01, r02, r03, r04, r05,  \
     c01, c11, c21, c31, c41, c51,        r10, r11, r12, r13, r14, r15,  \
     c02, c12, c22, c32, c42, c52,        r20, r21, r22, r23, r24, r25,  \
-    c03, c13, c23, c33, c43, c53,  c04,  r30, r31, r32, r33, r34, r35,  \
+    c03, c13, c23, c33, c43, c53,  c04,  r30, r31, r32, r33, r34, r35   \
 ) \
 { \
     /* LEFT SIDE SWITCHES, COL2ROW     RIGHT SIDE SWITCHES, ROW2COL */  \
