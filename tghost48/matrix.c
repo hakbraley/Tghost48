@@ -97,24 +97,31 @@ static void unselect_cols(void) {
 
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t row_index) {
-    bool matrix_has_changed = false;
-
-    // Start with a clear matrix row
-    matrix_row_t current_row_value = 0;
-
     // Select row pin
     if (!select_row(row_index)) {  // skip NO_PIN rows
         return false;
     }
     select_delay();
 
-    // For each col...
-    matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
-        uint8_t pin_state = readMatrixPin(col_pins[col_index]);
+    bool matrix_has_changed = false;
 
-        // Populate the matrix row with the state of the col pin
-        current_row_value |= pin_state ? 0 : row_shifter;
+    // Store last value of row prior to reading
+    matrix_row_t last_row_value    = current_matrix[row_index];
+    matrix_row_t current_row_value = last_row_value;
+    matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
+
+    // For each col...
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
+        if (col_pins[col_index] == NO_PIN) continue;  // Skip any NO_PIN
+
+        // Check col pin state
+        if (readMatrixPin(col_pins[col_index]) == 0) {
+            // Pin LO, set col bit
+            current_row_value |= row_shifter;
+        } else {
+            // Pin HI, clear col bit
+            current_row_value &= ~row_shifter;
+        }
     }
 
     // Determine if the matrix changed state
@@ -129,16 +136,18 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t row_index) {
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter) {
-    bool matrix_changed = false;
-
     // Select column pin
     if (!select_col(current_col)) { // skip NO_PIN columns
         return false;
     }
     select_delay();
 
+    bool matrix_changed = false;
+
     // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
+        if (row_pins[row_index] == NO_PIN) continue;  // Skip any NO_PIN
+
         // Store last value of row prior to reading
         matrix_row_t last_row_value    = current_matrix[row_index];
         matrix_row_t current_row_value = last_row_value;
@@ -182,6 +191,6 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     for (uint8_t col_idx = 0; col_idx < MATRIX_COLS; col_idx++, row_shifter <<= 1) {
         matrix_has_changed |= read_rows_on_col(current_matrix, col_idx, row_shifter);
     }
-    
+
     return matrix_has_changed;
 }

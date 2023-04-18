@@ -11,7 +11,7 @@
 #define MATRIX_ROWS 5   // 4 rows, and 1 extra row for the rotary encoder
 
 /* keyboard matrix assignments */
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
+#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 #define MATRIX_ROW_PINS { D7, E6, B4, B5, C6 }  // C6 is the encoder row pin
 
 /* COL2ROW, ROW2COL */
